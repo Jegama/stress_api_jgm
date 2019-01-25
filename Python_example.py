@@ -1,5 +1,5 @@
 import pandas as pd
-import requests
+import requests, argparse
 
 def get_analysis(url, csv_file):
     # load the input file and construct the payload for the request
@@ -13,12 +13,30 @@ def get_analysis(url, csv_file):
     if r["success"]:
         print("\nSuccessful request\n")
         return r
-    # otherwise, the request failed
     else:
         print("\nRequest failed\n")
         return []
         
-analysis = get_analysis('https://stress-api-jgm.herokuapp.com/analysis', 'test.csv')
-analysis.pop('success', None)
-output_df = pd.DataFrame.from_dict(analysis)
-output_df.to_csv('test_output.csv', index = None)
+def main():
+    parser = argparse.ArgumentParser()
+
+    # Data
+    parser.add_argument("data", help="Filename with data to be analyzed (including .csv)", type=str)
+
+    args = parser.parse_args()
+
+    print('\nWorking on:', args.data)
+
+    analysis = get_analysis('https://stress-api-jgm.herokuapp.com/analysis', args.data)
+    analysis.pop('success', None)
+    output_df = pd.DataFrame.from_dict(analysis)
+    output_df.to_csv('test_output.csv', index = None)
+
+    print('\nDone\n')
+
+
+if __name__ == '__main__':
+    try:
+        exit(main())
+    except KeyboardInterrupt:
+        print('\n\nExiting due to KeyboardInterrupt!\n')

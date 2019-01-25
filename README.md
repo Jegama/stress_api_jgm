@@ -70,6 +70,15 @@ output_df.to_csv('test_output.csv', index = None)
 
 ```
 
+This repo also includes a python script to make the analysis easier:
+
+```bash
+usage: Python_example.py [-h] data
+
+positional arguments:
+  data        Filename with data to be analyzed (including .csv)
+```
+
 ### Response
 
 The service returns a json with:
@@ -77,6 +86,35 @@ The service returns a json with:
 - datetime
 - stressLevel
 - stressFlag
+
+#### Example response
+
+```json
+{
+  "datetime": [
+    "2016-07-12 10:51:31",
+    "2016-07-12 10:51:32",
+    "2016-07-12 10:51:32",
+    "2016-07-12 10:51:33",
+    "2016-07-12 10:51:34"
+  ],
+  "stressFlag": [
+    " ",
+    " ",
+    " ",
+    " ",
+    " "
+  ],
+  "stressLevel": [
+    0.44802989788869596,
+    0.44802989788869596,
+    0.4480303958886647,
+    0.4480303958886647,
+    0.4551618972154855
+  ],
+  "success": true
+}
+```
 
 
 ## References
